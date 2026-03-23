@@ -73,4 +73,13 @@ async function logoutController(req, res) {
   return res.status(200).json({ message: "User logged out successfully" });
 }
 
-module.exports = { registerController, loginController, logoutController };
+async function getMeController(req, res) {
+  const user = await userModel.findById(req.user.id)
+  res.status(200).json({
+    id: user._id,
+    username: user.username,
+    email: user.email,
+  });
+}
+
+module.exports = { registerController, loginController, logoutController, getMeController };
